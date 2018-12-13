@@ -20,7 +20,9 @@ pub trait PointerArithmetic: layout::HasDataLayout {
     //// Trunace the given value to the pointer size; also return whether there was an overflow
     #[inline]
     fn truncate_to_ptr(&self, val: u128) -> (u64, bool) {
-        let max_ptr_plus_1 = 1u128 << self.pointer_size().bits();
+        let mut bits = self.pointer_size().bits();
+        if bits > 64 { bits = 64; }
+        let max_ptr_plus_1 = 1u128 << bits;
         ((val % max_ptr_plus_1) as u64, val >= max_ptr_plus_1)
     }
 

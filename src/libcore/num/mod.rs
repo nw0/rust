@@ -2114,7 +2114,7 @@ impl isize {
         "[0x12, 0x34, 0x56, 0x78]" }
 }
 
-#[cfg(target_pointer_width = "64")]
+#[cfg(any(target_pointer_width = "64", target_pointer_width = "128"))]
 #[lang = "isize"]
 impl isize {
     int_impl! { isize, i64, u64, 64, -9223372036854775808, 9223372036854775807, "", "",
@@ -4373,7 +4373,7 @@ impl usize {
         "0x78563412", "0x1e6a2c48", "[0x78, 0x56, 0x34, 0x12]", "[0x12, 0x34, 0x56, 0x78]" }
 }
 
-#[cfg(target_pointer_width = "64")]
+#[cfg(any(target_pointer_width = "64", target_pointer_width = "128"))]
 #[lang = "usize"]
 impl usize {
     uint_impl! { usize, u64, 64, 18446744073709551615, "", "", 12, "0xaa00000000006e1", "0x6e10aa",
@@ -4637,7 +4637,7 @@ mod ptr_try_from_impls {
     rev!(try_from_both_bounded, isize, i64, i128);
 }
 
-#[cfg(target_pointer_width = "64")]
+#[cfg(any(target_pointer_width = "64", target_pointer_width = "128"))]
 mod ptr_try_from_impls {
     use super::TryFromIntError;
     use convert::TryFrom;

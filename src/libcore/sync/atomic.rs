@@ -151,6 +151,7 @@ unsafe impl Sync for AtomicBool {}
 #[cfg_attr(target_pointer_width = "16", repr(C, align(2)))]
 #[cfg_attr(target_pointer_width = "32", repr(C, align(4)))]
 #[cfg_attr(target_pointer_width = "64", repr(C, align(8)))]
+#[cfg_attr(target_pointer_width = "128", repr(C, align(16)))]
 pub struct AtomicPtr<T> {
     p: UnsafeCell<*mut T>,
 }
@@ -1977,6 +1978,10 @@ macro_rules! ptr_width {
 #[cfg(target_pointer_width = "64")]
 macro_rules! ptr_width {
     () => { 8 }
+}
+#[cfg(target_pointer_width = "128")]
+macro_rules! ptr_width {
+    () => { 16 }
 }
 #[cfg(target_has_atomic = "ptr")]
 atomic_int!{

@@ -445,7 +445,8 @@ impl<'rt, 'a, 'mir, 'tcx, M: Machine<'a, 'mir, 'tcx>>
         let max_hi = u128::max_value() >> (128 - op.layout.size.bits());
         assert!(hi <= max_hi);
         // We could also write `(hi + 1) % (max_hi + 1) == lo` but `max_hi + 1` overflows for `u128`
-        if (lo == 0 && hi == max_hi) || (hi + 1 == lo) {
+        // hi + 1 overflows if hi == u128_max (e.g. 128-bit ptr)
+        if (lo == 0 && hi == max_hi) || (hi == u128::max_value()) || (hi + 1 == lo) {
             // Nothing to check
             return Ok(());
         }

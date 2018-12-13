@@ -1479,6 +1479,7 @@ pub fn build_target_config(opts: &Options, sp: &Handler) -> Config {
         "16" => (ast::IntTy::I16, ast::UintTy::U16),
         "32" => (ast::IntTy::I32, ast::UintTy::U32),
         "64" => (ast::IntTy::I64, ast::UintTy::U64),
+        "128" => (ast::IntTy::I128, ast::UintTy::U128),
         w => sp.fatal(&format!(
             "target specification was invalid: \
              unrecognized target-pointer-width {}",

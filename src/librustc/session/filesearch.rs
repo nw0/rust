@@ -181,6 +181,9 @@ fn find_libdir(sysroot: &Path) -> Cow<'static, str> {
     #[cfg(target_pointer_width = "64")]
     const PRIMARY_LIB_DIR: &'static str = "lib64";
 
+    #[cfg(target_pointer_width = "128")]
+    const PRIMARY_LIB_DIR: &'static str = "lib64";
+
     #[cfg(target_pointer_width = "32")]
     const PRIMARY_LIB_DIR: &'static str = "lib32";
 
