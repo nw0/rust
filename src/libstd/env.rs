@@ -923,6 +923,11 @@ mod arch {
     pub const ARCH: &str = "aarch64";
 }
 
+#[cfg(target_arch = "cheri")]
+mod arch {
+    pub const ARCH: &str = "cheri";
+}
+
 #[cfg(target_arch = "mips")]
 mod arch {
     pub const ARCH: &str = "mips";
