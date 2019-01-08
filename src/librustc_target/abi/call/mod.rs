@@ -16,6 +16,7 @@ mod aarch64;
 mod amdgpu;
 mod arm;
 mod asmjs;
+mod cheri;
 mod hexagon;
 mod mips;
 mod mips64;
@@ -506,6 +507,7 @@ impl<'a, Ty> FnType<'a, Ty> {
             "aarch64" => aarch64::compute_abi_info(cx, self),
             "amdgpu" => amdgpu::compute_abi_info(cx, self),
             "arm" => arm::compute_abi_info(cx, self),
+            "cheri" => cheri::compute_abi_info(cx, self),
             "mips" => mips::compute_abi_info(cx, self),
             "mips64" => mips64::compute_abi_info(cx, self),
             "powerpc" => powerpc::compute_abi_info(cx, self),
