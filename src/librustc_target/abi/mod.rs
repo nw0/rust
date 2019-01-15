@@ -190,6 +190,7 @@ impl TargetDataLayout {
             16 => 1 << 15,
             32 => 1 << 31,
             64 => 1 << 47,
+            128 => 1 << 47,
             bits => panic!("obj_size_bound: unknown pointer bit size {}", bits)
         }
     }
@@ -199,6 +200,7 @@ impl TargetDataLayout {
             16 => I16,
             32 => I32,
             64 => I64,
+            128 => I128,
             bits => panic!("ptr_sized_integer: unknown pointer bit size {}", bits)
         }
     }
