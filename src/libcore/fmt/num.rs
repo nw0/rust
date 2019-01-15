@@ -267,3 +267,5 @@ impl_Display!(isize, usize: to_u16);
 impl_Display!(isize, usize: to_u32);
 #[cfg(target_pointer_width = "64")]
 impl_Display!(isize, usize: to_u64);
+#[cfg(target_pointer_width = "128")]
+impl_Display!(isize, usize: to_u128);

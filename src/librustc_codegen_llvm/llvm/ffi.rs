@@ -635,6 +635,7 @@ extern "C" {
     pub fn LLVMInt16TypeInContext(C: &Context) -> &Type;
     pub fn LLVMInt32TypeInContext(C: &Context) -> &Type;
     pub fn LLVMInt64TypeInContext(C: &Context) -> &Type;
+    pub fn LLVMInt128TypeInContext(C: &Context) -> &Type;
     pub fn LLVMIntTypeInContext(C: &Context, NumBits: c_uint) -> &Type;
 
     pub fn LLVMGetIntTypeWidth(IntegerTy: &Type) -> c_uint;

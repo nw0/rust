@@ -26,6 +26,7 @@ pub(crate) unsafe fn codegen(tcx: TyCtxt, mods: &ModuleLlvm, kind: AllocatorKind
         "16" => llvm::LLVMInt16TypeInContext(llcx),
         "32" => llvm::LLVMInt32TypeInContext(llcx),
         "64" => llvm::LLVMInt64TypeInContext(llcx),
+        "128" => llvm::LLVMInt128TypeInContext(llcx),
         tws => bug!("Unsupported target word size for int: {}", tws),
     };
     let i8 = llvm::LLVMInt8TypeInContext(llcx);
