@@ -678,10 +678,10 @@ class RustBuild(object):
 
         print("Updating submodule", module)
 
-        run(["git", "submodule", "-q", "sync", "--progress", module],
+        run(["git", "submodule", "-q", "sync", module],
             cwd=self.rust_root, verbose=self.verbose)
         run(["git", "submodule", "update",
-            "--init", "--recursive", "--progress", module],
+            "--init", "--recursive", module],
             cwd=self.rust_root, verbose=self.verbose)
         run(["git", "reset", "-q", "--hard"],
             cwd=module_path, verbose=self.verbose)
