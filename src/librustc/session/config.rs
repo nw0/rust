@@ -1484,7 +1484,7 @@ pub fn default_configuration(sess: &Session) -> ast::CrateConfig {
         ret.insert((Symbol::intern("target_thread_local"), None));
     }
     for &i in &[8, 16, 32, 64, 128] {
-        if i >= min_atomic_width && i <= max_atomic_width {
+        if (i >= min_atomic_width && i <= max_atomic_width) || (max_atomic_width == 64 && i == 128 && wordsz == &"128".to_string() && arch == &"cheri".to_string()) {
             let s = i.to_string();
             ret.insert((
                 Symbol::intern("target_has_atomic"),
