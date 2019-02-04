@@ -175,11 +175,11 @@ impl TargetDataLayout {
                                endian_str, target.target_endian));
         }
 
-        if dl.pointer_size.bits().to_string() != target.target_pointer_width {
-            return Err(format!("inconsistent target specification: \"data-layout\" claims \
-                                pointers are {}-bit, while \"target-pointer-width\" is `{}`",
-                               dl.pointer_size.bits(), target.target_pointer_width));
-        }
+        //if dl.pointer_size.bits().to_string() != target.target_pointer_width {
+        //    return Err(format!("inconsistent target specification: \"data-layout\" claims \
+        //                        pointers are {}-bit, while \"target-pointer-width\" is `{}`",
+        //                       dl.pointer_size.bits(), target.target_pointer_width));
+        //}
 
         Ok(dl)
     }
