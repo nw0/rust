@@ -530,6 +530,7 @@ impl CodegenCx<'b, 'tcx> {
         ifn!("llvm.memset.p0i8.i16", fn(i8p, t_i8, t_i16, t_i32, i1) -> void);
         ifn!("llvm.memset.p0i8.i32", fn(i8p, t_i8, t_i32, t_i32, i1) -> void);
         ifn!("llvm.memset.p0i8.i64", fn(i8p, t_i8, t_i64, t_i32, i1) -> void);
+        ifn!("llvm.memset.p0i8.i128", fn(i8p, t_i8, t_i128, t_i32, i1) -> void);
 
         ifn!("llvm.trap", fn() -> void);
         ifn!("llvm.debugtrap", fn() -> void);
