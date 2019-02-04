@@ -908,7 +908,7 @@ LLVMRustCreateThinLTOData(LLVMRustThinLTOModule *modules,
                               GlobalValue::LinkageTypes NewLinkage) {
     ResolvedODR[ModuleIdentifier][GUID] = NewLinkage;
   };
-#if LLVM_VERSION_GE(8, 0)
+#if LLVM_VERSION_GE(8, 0) && false
   thinLTOResolvePrevailingInIndex(Ret->Index, isPrevailing, recordNewLinkage);
 #else
   thinLTOResolveWeakForLinkerInIndex(Ret->Index, isPrevailing, recordNewLinkage);
@@ -967,7 +967,7 @@ extern "C" bool
 LLVMRustPrepareThinLTOResolveWeak(const LLVMRustThinLTOData *Data, LLVMModuleRef M) {
   Module &Mod = *unwrap(M);
   const auto &DefinedGlobals = Data->ModuleToDefinedGVSummaries.lookup(Mod.getModuleIdentifier());
-#if LLVM_VERSION_GE(8, 0)
+#if LLVM_VERSION_GE(8, 0) && false
   thinLTOResolvePrevailingInModule(Mod, DefinedGlobals);
 #else
   thinLTOResolveWeakForLinkerModule(Mod, DefinedGlobals);
