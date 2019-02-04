@@ -64,7 +64,7 @@ trait GenericRadix {
         let zero = T::zero();
         let is_nonnegative = x >= zero;
         let mut buf: [u8; 128] = unsafe { mem::uninitialized() };
-        let mut curr = buf.len();
+        let mut curr = buf.len() as i64;
         let base = T::from_u8(Self::BASE);
         if is_nonnegative {
             // Accumulate each digit of the number from the least significant
@@ -92,7 +92,7 @@ trait GenericRadix {
                 };
             }
         }
-        let buf = unsafe { str::from_utf8_unchecked(&buf[curr..]) };
+        let buf = unsafe { str::from_utf8_unchecked(&buf[(curr as usize)..]) };
         f.pad_integral(is_nonnegative, Self::PREFIX, buf)
     }
 }
@@ -222,8 +222,8 @@ macro_rules! impl_Display {
                         let d1 = (rem / 100) << 1;
                         let d2 = (rem % 100) << 1;
                         curr -= 4;
-                        ptr::copy_nonoverlapping(lut_ptr.offset(d1), buf_ptr.offset(curr), 2);
-                        ptr::copy_nonoverlapping(lut_ptr.offset(d2), buf_ptr.offset(curr + 2), 2);
+                        ptr::copy_nonoverlapping(lut_ptr.offset(d1), buf_ptr.offset(curr as isize), 2);
+                        ptr::copy_nonoverlapping(lut_ptr.offset(d2), buf_ptr.offset((curr + 2) as isize), 2);
                     }
                 }
 
@@ -235,23 +235,23 @@ macro_rules! impl_Display {
                     let d1 = (n % 100) << 1;
                     n /= 100;
                     curr -= 2;
-                    ptr::copy_nonoverlapping(lut_ptr.offset(d1), buf_ptr.offset(curr), 2);
+                    ptr::copy_nonoverlapping(lut_ptr.offset(d1), buf_ptr.offset(curr as isize), 2);
                 }
 
                 // decode last 1 or 2 chars
                 if n < 10 {
                     curr -= 1;
-                    *buf_ptr.offset(curr) = (n as u8) + b'0';
+                    *buf_ptr.offset(curr as isize) = (n as u8) + b'0';
                 } else {
                     let d1 = n << 1;
                     curr -= 2;
-                    ptr::copy_nonoverlapping(lut_ptr.offset(d1), buf_ptr.offset(curr), 2);
+                    ptr::copy_nonoverlapping(lut_ptr.offset(d1), buf_ptr.offset(curr as isize), 2);
                 }
             }
 
             let buf_slice = unsafe {
                 str::from_utf8_unchecked(
-                    slice::from_raw_parts(buf_ptr.offset(curr), buf.len() - curr as usize))
+                    slice::from_raw_parts(buf_ptr.offset(curr as isize), buf.len() - curr as usize))
             };
             f.pad_integral(is_nonnegative, "", buf_slice)
         }
