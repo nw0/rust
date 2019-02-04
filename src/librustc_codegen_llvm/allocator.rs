@@ -19,7 +19,8 @@ pub(crate) unsafe fn codegen(tcx: TyCtxt<'_, '_, '_>, mods: &mut ModuleLlvm, kin
         tws => bug!("Unsupported target word size for int: {}", tws),
     };
     let i8 = llvm::LLVMInt8TypeInContext(llcx);
-    let i8p = llvm::LLVMPointerType(i8, 0);
+    let addr_space = (tcx.data_layout).instruction_address_space as c_uint;
+    let i8p = llvm::LLVMPointerType(i8, addr_space);
     let void = llvm::LLVMVoidTypeInContext(llcx);
 
     for method in ALLOCATOR_METHODS {
