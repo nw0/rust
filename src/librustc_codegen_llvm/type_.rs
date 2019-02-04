@@ -21,6 +21,7 @@ use value::Value;
 use rustc::util::nodemap::FxHashMap;
 use rustc::ty::Ty;
 use rustc::ty::layout::TyLayout;
+use rustc_target::abi::HasDataLayout;
 use rustc_target::abi::call::{CastTarget, FnType, Reg};
 use rustc_data_structures::small_c_str::SmallCStr;
 use common;
@@ -198,7 +199,8 @@ impl BaseTypeMethods<'tcx> for CodegenCx<'ll, 'tcx> {
     fn type_ptr_to(&self, ty: &'ll Type) -> &'ll Type {
         assert_ne!(self.type_kind(ty), TypeKind::Function,
                    "don't call ptr_to on function types, use ptr_to_llvm_type on FnType instead");
-        ty.ptr_to()
+        let addr_space = self.data_layout().instruction_address_space as c_uint;
+        ty.ptr_to(addr_space)
     }
 
     fn element_type(&self, ty: &'ll Type) -> &'ll Type {
@@ -266,12 +268,13 @@ impl Type {
     }
 
     pub fn i8p_llcx(llcx: &'ll llvm::Context) -> &'ll Type {
-        Type::i8_llcx(llcx).ptr_to()
+        // This fn is only called under msvc
+        Type::i8_llcx(llcx).ptr_to(0 as c_uint)
     }
 
-    fn ptr_to(&self) -> &Type {
+    fn ptr_to(&self, addr_space: c_uint) -> &Type {
         unsafe {
-            llvm::LLVMPointerType(&self, 0)
+            llvm::LLVMPointerType(&self, addr_space)
         }
     }
 }
