@@ -1014,9 +1014,7 @@ impl BuilderMethods<'a, 'tcx> for Builder<'a, 'll, 'tcx> {
         flags: MemFlags,
     ) {
         let ptr_width = &self.sess().target.target.target_pointer_width;
-        let intrinsic_key = if ptr_width == &"128".to_string()
-        { format!("llvm.memset.p0i8.i{}", 64) }
-        else { format!("llvm.memset.p0i8.i{}", ptr_width) };
+        let intrinsic_key = format!("llvm.memset.p0i8.i{}", ptr_width);
         let llintrinsicfn = self.get_intrinsic(&intrinsic_key);
         let ptr = self.pointercast(ptr, self.type_i8p());
         let align = self.const_u32(align.bytes() as u32);
