@@ -359,6 +359,9 @@ extern "C" LLVMTargetMachineRef LLVMRustCreateTargetMachine(
   Options.FunctionSections = FunctionSections;
   Options.MCOptions.AsmVerbose = AsmComments;
   Options.MCOptions.PreserveAsmComments = AsmComments;
+  if (strcmp(TripleStr, "cheri-unknown-freebsd") == 0) {
+      Options.MCOptions.ABIName = "purecap";
+  }
 
   if (TrapUnreachable) {
     // Tell LLVM to codegen `unreachable` into an explicit trap instruction.
