@@ -112,7 +112,7 @@ impl TargetDataLayout {
                 ["a", ref a..] => dl.aggregate_align = align(a, "a")?,
                 ["f32", ref a..] => dl.f32_align = align(a, "f32")?,
                 ["f64", ref a..] => dl.f64_align = align(a, "f64")?,
-                [p @ "p", s, ref a..] | [p @ "p0", s, ref a..] => {
+                [p @ "p", s, ref a..] | [p @ "p0", s, ref a..] | [p @ "pf200", s, ref a..] => {
                     dl.pointer_size = size(s, p)?;
                     dl.pointer_align = align(a, p)?;
                 }
