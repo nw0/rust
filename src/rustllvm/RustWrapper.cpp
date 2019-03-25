@@ -117,7 +117,7 @@ extern "C" LLVMValueRef LLVMRustGetOrInsertFunction(LLVMModuleRef M,
                                                     const char *Name,
                                                     LLVMTypeRef FunctionTy) {
   return wrap(
-      unwrap(M)->getOrInsertFunction(Name, unwrap<FunctionType>(FunctionTy)));
+      (unwrap(M)->getOrInsertFunction(Name, unwrap<FunctionType>(FunctionTy))).getCallee());
 }
 
 extern "C" LLVMValueRef
