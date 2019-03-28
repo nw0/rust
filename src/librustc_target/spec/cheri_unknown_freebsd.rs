@@ -13,7 +13,7 @@ use crate::spec::{LinkerFlavor, Target, TargetResult};
 pub fn target() -> TargetResult {
     let mut base = super::freebsd_base::opts();
     base.cpu = "cheri128".to_string();
-    base.features = "+mips64r2".to_string();
+    base.features = "+cheri128,+chericap,+soft-float,-noabicalls".to_string();
     base.max_atomic_width = Some(64);
     base.has_elf_tls = false;
     base.pre_link_args.get_mut(&LinkerFlavor::Gcc).unwrap().push("-mabi=purecap".to_string());
