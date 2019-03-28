@@ -256,6 +256,11 @@ impl IntrinsicCallMethods<'tcx> for Builder<'a, 'll, 'tcx> {
                 let offset = args[1].immediate();
                 self.gep(ptr, &[offset])
             }
+            "ptr_diff" => {
+                let lhs = args[0].immediate();
+                let rhs = args[1].immediate();
+                self.ptr_diff(lhs, rhs)
+            }
 
             "copy_nonoverlapping" => {
                 copy_intrinsic(self, false, false, substs.type_at(0),

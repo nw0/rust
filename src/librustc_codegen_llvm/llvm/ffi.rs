@@ -1207,6 +1207,11 @@ extern "C" {
                                 Index: c_uint,
                                 Name: *const c_char)
                                 -> &'a Value;
+    pub fn LLVMBuildPtrDiff(B: &Builder<'a>,
+                            LHS: &'a Value,
+                            RHS: &'a Value,
+                            Name: *const c_char)
+                            -> &'a Value;
 
     pub fn LLVMRustBuildVectorReduceFAdd(B: &Builder<'a>,
                                          Acc: &'a Value,

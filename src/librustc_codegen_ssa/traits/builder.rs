@@ -245,6 +245,7 @@ pub trait BuilderMethods<'a, 'tcx: 'a>:
     fn vector_reduce_max(&mut self, src: Self::Value, is_signed: bool) -> Self::Value;
     fn extract_value(&mut self, agg_val: Self::Value, idx: u64) -> Self::Value;
     fn insert_value(&mut self, agg_val: Self::Value, elt: Self::Value, idx: u64) -> Self::Value;
+    fn ptr_diff(&mut self, lhs: Self::Value, rhs: Self::Value) -> Self::Value;
 
     fn landing_pad(
         &mut self,

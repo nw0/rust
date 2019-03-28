@@ -1167,6 +1167,13 @@ impl BuilderMethods<'a, 'tcx> for Builder<'a, 'll, 'tcx> {
         }
     }
 
+    fn ptr_diff(&mut self, lhs: &'ll Value, rhs: &'ll Value) -> &'ll Value {
+        self.count_insn("ptrdiff");
+        unsafe {
+            llvm::LLVMBuildPtrDiff(self.llbuilder, lhs, rhs, noname())
+        }
+    }
+
     fn landing_pad(&mut self, ty: &'ll Type, pers_fn: &'ll Value,
                        num_clauses: usize) -> &'ll Value {
         self.count_insn("landingpad");

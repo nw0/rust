@@ -182,6 +182,20 @@ pub fn check_intrinsic_type<'a, 'tcx>(tcx: TyCtxt<'a, 'tcx, 'tcx>,
                    mutbl: hir::MutImmutable
                }))
             }
+            "ptr_diff" => {
+              (1,
+               vec![
+                  tcx.mk_ptr(ty::TypeAndMut {
+                      ty: param(0),
+                      mutbl: hir::MutImmutable
+                  }),
+                  tcx.mk_ptr(ty::TypeAndMut {
+                      ty: param(0),
+                      mutbl: hir::MutImmutable
+                  })
+               ],
+               tcx.types.usize)
+            }
             "copy" | "copy_nonoverlapping" => {
               (1,
                vec![
