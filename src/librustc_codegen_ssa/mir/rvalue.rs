@@ -359,7 +359,12 @@ impl<'a, 'tcx: 'a, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
                                 bx.ptrtoint(llval, ll_t_out),
                             (CastTy::Int(_), CastTy::Ptr(_)) => {
                                 let usize_llval = bx.intcast(llval, bx.cx().type_isize(), signed);
-                                bx.inttoptr(usize_llval, ll_t_out)
+                                let ptr_int = if bx.cx().type_isize() == bx.cx().type_i128() {
+                                    bx.trunc(usize_llval, bx.cx().type_i64())
+                                } else {
+                                    usize_llval
+                                };
+                                bx.inttoptr(ptr_int, ll_t_out)
                             }
                             (CastTy::Int(_), CastTy::Float) =>
                                 cast_int_to_float(&mut bx, signed, llval, ll_t_in, ll_t_out),
