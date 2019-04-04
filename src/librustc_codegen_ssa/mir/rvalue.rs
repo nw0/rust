@@ -355,8 +355,15 @@ impl<'a, 'tcx: 'a, Bx: BuilderMethods<'a, 'tcx>> FunctionCx<'a, 'tcx, Bx> {
                             (CastTy::RPtr(_), CastTy::Ptr(_)) =>
                                 bx.pointercast(llval, ll_t_out),
                             (CastTy::Ptr(_), CastTy::Int(_)) |
-                            (CastTy::FnPtr, CastTy::Int(_)) =>
-                                bx.ptrtoint(llval, ll_t_out),
+                            (CastTy::FnPtr, CastTy::Int(_)) => {
+                                if bx.cx().type_isize() == bx.cx().type_i128() {
+                                    let _lo = ll_t_out;
+                                    let int = bx.ptrtoint(llval, bx.cx().type_i64());
+                                    bx.zext(int, bx.cx().type_i128())
+                                } else {
+                                    bx.ptrtoint(llval, ll_t_out)
+                                }
+                            }
                             (CastTy::Int(_), CastTy::Ptr(_)) => {
                                 let usize_llval = bx.intcast(llval, bx.cx().type_isize(), signed);
                                 let ptr_int = if bx.cx().type_isize() == bx.cx().type_i128() {
