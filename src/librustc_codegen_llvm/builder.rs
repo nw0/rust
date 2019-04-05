@@ -964,7 +964,7 @@ impl BuilderMethods<'a, 'tcx> for Builder<'a, 'll, 'tcx> {
             self.store_with_flags(val, ptr, dst_align, flags);
             return;
         }
-        let size = self.intcast(size, self.type_isize(), false);
+        let size = self.intcast(size, self.type_i64(), false);
         let is_volatile = flags.contains(MemFlags::VOLATILE);
         let dst = self.pointercast(dst, self.type_i8p());
         let src = self.pointercast(src, self.type_i8p());
@@ -984,7 +984,7 @@ impl BuilderMethods<'a, 'tcx> for Builder<'a, 'll, 'tcx> {
             self.store_with_flags(val, ptr, dst_align, flags);
             return;
         }
-        let size = self.intcast(size, self.type_isize(), false);
+        let size = self.intcast(size, self.type_i64(), false);
         let is_volatile = flags.contains(MemFlags::VOLATILE);
         let dst = self.pointercast(dst, self.type_i8p());
         let src = self.pointercast(src, self.type_i8p());
